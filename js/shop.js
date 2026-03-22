@@ -2,7 +2,7 @@
 //  StyleHub — Shop Page (shop.js)
 // ============================================================
 
-const ITEMS_PER_PAGE = 9;
+const ITEMS_PER_PAGE = 8;
 let currentPage = 1;
 let filteredProducts = [];
 let currentView = "grid";
@@ -37,10 +37,9 @@ document.addEventListener("DOMContentLoaded", () => {
     r.addEventListener("change", () => { currentPage = 1; applyFilters(); updateShopTitle(r.value); });
   });
   document.getElementById("priceRange").addEventListener("input", () => { currentPage = 1; applyFilters(); });
-  document.querySelectorAll(".size-filter").forEach(cb => cb.addEventListener("change", () => { currentPage = 1; applyFilters(); }));
-  document.getElementById("filterSale").addEventListener("change", () => { currentPage = 1; applyFilters(); });
-  document.getElementById("filterNew").addEventListener("change", () => { currentPage = 1; applyFilters(); });
-  document.getElementById("filterFeatured").addEventListener("change", () => { currentPage = 1; applyFilters(); });
+  document.getElementById("filterWithBlouse").addEventListener("change", () => { currentPage = 1; applyFilters(); });
+  document.getElementById("filterNewArrival").addEventListener("change", () => { currentPage = 1; applyFilters(); });
+  document.getElementById("filterSyntheticCotton").addEventListener("change", () => { currentPage = 1; applyFilters(); });
 
   // Show sidebar toggle on mobile
   if (window.innerWidth <= 1024) {
@@ -72,14 +71,13 @@ function updatePriceFilter(val) {
 function applyFilters(searchQuery) {
   const category = document.querySelector("input[name='category']:checked")?.value || "all";
   const maxPrice = parseInt(document.getElementById("priceRange").value);
-  const selectedSizes = Array.from(document.querySelectorAll(".size-filter:checked")).map(cb => cb.value);
-  const showSale = document.getElementById("filterSale")?.checked;
-  const showNew = document.getElementById("filterNew")?.checked;
-  const showFeatured = document.getElementById("filterFeatured")?.checked;
+  const showWithBlouse = document.getElementById("filterWithBlouse")?.checked;
+  const showNewArrival = document.getElementById("filterNewArrival")?.checked;
+  const showSyntheticCotton = document.getElementById("filterSyntheticCotton")?.checked;
   const sort = document.getElementById("sortSelect")?.value || "featured";
   const query = (searchQuery || new URLSearchParams(window.location.search).get("q") || "").toLowerCase();
 
-  let products = [...PRODUCTS];
+  let products = PRODUCTS.filter(p => p.category !== "men");
 
   // Category
   if (category !== "all") products = products.filter(p => p.category === category);
@@ -87,13 +85,12 @@ function applyFilters(searchQuery) {
   // Max price
   products = products.filter(p => p.price <= maxPrice);
 
-  // Sizes
-  if (selectedSizes.length > 0) products = products.filter(p => selectedSizes.some(s => p.sizes.includes(s)));
+  // With Blouse filter
+  if (showWithBlouse) products = products.filter(p => p.withBlouse);
 
-  // Badge filters
-  if (showSale) products = products.filter(p => p.badge === "sale");
-  if (showNew) products = products.filter(p => p.badge === "new");
-  if (showFeatured) products = products.filter(p => p.featured);
+  // Special offers filters
+  if (showNewArrival) products = products.filter(p => p.newArrival);
+  if (showSyntheticCotton) products = products.filter(p => p.syntheticCotton);
 
   // Search
   if (query) {

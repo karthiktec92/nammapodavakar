@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Secure checkout at Namma Ooru Podavakar.">
-  <title>Checkout — Namma Ooru Podavakar</title>
+  <meta name="description" content="Secure checkout at நம்ம ஊரு புடவைக்கர்.">
+  <title>Checkout — நம்ம ஊரு புடவைக்கர்</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@400;700;800&display=swap" rel="stylesheet">
@@ -16,7 +16,7 @@
 <header class="site-header" id="siteHeader" style="position:static;border-bottom:1px solid var(--border);">
   <div class="container">
     <div class="header-inner">
-      <a href="index.html" class="logo"><div class="logo-icon"><i class="fa-solid fa-shirt"></i></div>Namma Ooru Podavakar</a>
+      <a href="index.html" class="logo"><div class="logo-icon"><i class="fa-solid fa-shirt"></i></div>நம்ம ஊரு புடவைக்கர்</a>
       <div style="display:flex;align-items:center;gap:20px;font-size:.82rem;color:var(--text-muted);">
         <span><i class="fa-solid fa-lock" style="color:var(--success);"></i> Secure Checkout</span>
         <a href="cart.html" style="color:var(--secondary);font-weight:600;"><i class="fa-solid fa-arrow-left"></i> Back to Cart</a>
@@ -122,9 +122,9 @@
                 <input type="radio" name="shipping" value="standard" checked style="accent-color:var(--primary);">
                 <div style="flex:1;">
                   <div style="font-size:.88rem;font-weight:700;">Standard Shipping (3–5 business days)</div>
-                  <div style="font-size:.78rem;color:var(--text-muted);">Orders over ₹5,000 ship free</div>
+                  <div style="font-size:.78rem;color:var(--text-muted);">Flat rate delivery</div>
                 </div>
-                <span id="shippingCostLabel" style="font-weight:700;">₹99</span>
+                <span id="shippingCostLabel" style="font-weight:700;">₹150</span>
               </label>
             </div>
 
@@ -161,7 +161,7 @@
 
               <!-- QR Code -->
               <div style="text-align:center;padding:12px 0;">
-                <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=upi%3A%2F%2Fpay%3Fpa%3Dsampathkarur58-1%40okicici%26pn%3DNamma+Ooru+Podavakar%26cu%3DINR"
+                <img id="paymentQR" src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=upi%3A%2F%2Fpay%3Fpa%3Dsampathkarur58-1%40okicici%26pn%3DNamma+Ooru+Podavakar%26cu%3DINR"
                      alt="Google Pay QR Code"
                      style="width:200px;height:200px;border-radius:12px;border:2px solid var(--border);">
                 <p style="font-size:.78rem;color:var(--text-muted);margin-top:8px;">Open Google Pay → Scan this QR code → Enter amount → Pay</p>
@@ -171,8 +171,8 @@
               <div style="background:#fff8e1;border-left:4px solid #f4a02a;border-radius:0 8px 8px 0;padding:12px 16px;font-size:.82rem;line-height:1.6;">
                 <strong>How to pay:</strong><br>
                 1. Open Google Pay app on your phone<br>
-                2. Tap <em>"Scan any QR code"</em> and scan the code above, or tap <em>"Pay UPI ID"</em> and enter <strong>sampathkarur58-1@okicici</strong><br>
-                3. Enter the exact order total and tap <strong>Pay</strong>
+                2. Tap <em>"Scan any QR code"</em> and scan the code above — the amount is pre-filled automatically<br>
+                3. Verify the amount and tap <strong>Pay</strong>
               </div>
             </div>
 
@@ -211,6 +211,7 @@
             <div class="summary-row"><span>Subtotal</span><span id="panelSubtotal">₹0</span></div>
             <div class="summary-row"><span>Shipping</span><span id="panelShipping">₹0</span></div>
             <div class="summary-row"><span>GST (18%)</span><span id="panelTax">₹0</span></div>
+            <div class="summary-row" style="color:var(--success);"><span>Discount</span><span id="panelDiscount">−₹0</span></div>
             <div class="summary-row total"><span>Total</span><span id="panelTotal">₹0</span></div>
           </div>
           <div class="secure-badges" style="margin-top:20px;">
@@ -247,7 +248,8 @@ const FORMSPREE_ENDPOINT = "https://formspree.io/f/xwvrjebn"; // ← replace
     const sub = Cart.getSubtotal();
     const ship = Cart.getShipping(sub);
     const tax = Cart.getTax(sub);
-    const total = sub + ship + tax;
+    const discount = tax;
+    const total = sub + ship + tax - discount;
 
     document.getElementById("checkoutItems").innerHTML = items.map(i => `
       <div class="order-item">
@@ -263,10 +265,14 @@ const FORMSPREE_ENDPOINT = "https://formspree.io/f/xwvrjebn"; // ← replace
     document.getElementById("panelSubtotal").textContent = formatPrice(sub);
     document.getElementById("panelShipping").textContent = ship === 0 ? "FREE" : formatPrice(ship);
     document.getElementById("panelTax").textContent = formatPrice(tax);
+    document.getElementById("panelDiscount").textContent = "−" + formatPrice(discount);
     document.getElementById("panelTotal").textContent = formatPrice(total);
     if (document.getElementById("finalTotal")) document.getElementById("finalTotal").textContent = formatPrice(total);
-    if (document.getElementById("shippingCostLabel")) document.getElementById("shippingCostLabel").textContent = ship === 0 ? "FREE" : "₹99";
-  }
+    if (document.getElementById("shippingCostLabel")) document.getElementById("shippingCostLabel").textContent = ship === 0 ? "FREE" : formatPrice(ship);    const qrEl = document.getElementById("paymentQR");
+    if (qrEl && total > 0) {
+      const upiData = `upi://pay?pa=sampathkarur58-1@okicici&pn=Namma+Ooru+Podavakar&am=${total.toFixed(2)}&cu=INR&tn=Order+Payment`;
+      qrEl.src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(upiData)}`;
+    }  }
 
   function selectPayment(el, type) {
     document.querySelectorAll(".payment-method").forEach(m => m.classList.remove("active"));
@@ -450,7 +456,7 @@ Payment  : Google Pay (UPI) — sampathkarur58-1@okicici`;
         method : "POST",
         headers: { "Content-Type": "application/json", "Accept": "application/json" },
         body   : JSON.stringify({
-          _subject  : `Namma Ooru Podavakar Order ${orderNum}`,
+          _subject  : `நம்ம ஊரு புடவைக்கர் Order ${orderNum}`,
           _replyto  : document.getElementById("email").value || "noreply@nammaooru.in",
           order_no  : orderNum,
           customer  : `${firstName} ${lastName}`,

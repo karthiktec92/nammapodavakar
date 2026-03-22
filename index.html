@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Namma Ooru Podavakar — Premium fashion for men and women. Shop the latest trends with free shipping over ₹5,000.">
+  <meta name="description" content="நம்ம ஊரு புடவைக்கர் — Premium fashion for men and women. Shop the latest trends with free shipping over ₹5,000.">
   <meta name="keywords" content="fashion, clothing, men, women, online shop">
-  <meta property="og:title" content="Namma Ooru Podavakar — Wear Your Story">
+  <meta property="og:title" content="நம்ம ஊரு புடவைக்கர் — Wear Your Story">
   <meta property="og:description" content="Premium clothing for every style and occasion.">
   <meta property="og:type" content="website">
-  <title>Namma Ooru Podavakar — Wear Your Story</title>
+  <title>நம்ம ஊரு புடவைக்கர் — Wear Your Story</title>
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -31,12 +31,12 @@
     <div class="header-inner">
       <a href="index.html" class="logo">
         <div class="logo-icon"><i class="fa-solid fa-shirt"></i></div>
-        Namma Ooru Podavakar
+        நம்ம ஊரு புடவைக்கர்
       </a>
       <nav class="main-nav" id="mainNav">
         <a href="index.html">Home</a>
         <a href="shop.html">Shop</a>
-        <a href="shop.html?cat=men">Men</a>
+        <span style="pointer-events:none;opacity:0.45;cursor:default;">Men</span>
         <a href="shop.html?cat=women">Women</a>
         <a href="about.html">About</a>
         <a href="contact.html">Contact</a>
@@ -98,12 +98,27 @@
       </div>
     </div>
     <div class="hero-image">
-      <img src="images/main_page.jpg" alt="Fashion model" loading="eager">
+      <img id="heroMainImg" src="images/main_page.jpg" alt="Fashion model" loading="eager" style="transition:opacity .6s ease;">
+      <script>
+        (function() {
+          var imgs = ["images/main_page.jpg", "images/main_page_1.jpg"];
+          var i = 0;
+          var el = document.getElementById("heroMainImg");
+          setInterval(function() {
+            el.style.opacity = "0";
+            setTimeout(function() {
+              i = (i + 1) % imgs.length;
+              el.src = imgs[i];
+              el.style.opacity = "1";
+            }, 600);
+          }, 5000);
+        })();
+      </script>
       <div class="hero-image-badge">
         <div class="badge-icon"><i class="fa-solid fa-star"></i></div>
         <div>
-          <strong>4.9 / 5 Rating</strong>
-          <span>From 12,000+ reviews</span>
+          <strong>வாங்கி தான் பாபோமே</strong>
+          <span>From 2,500+ un documented reviews</span>
         </div>
       </div>
     </div>
@@ -224,7 +239,7 @@
       </div>
       <div class="testimonial-card">
         <div class="testimonial-quote">"</div>
-        <p class="testimonial-text">The Wool Blazer fits perfectly. I've been searching for a quality blazer for months and Namma Ooru Podavakar delivered. The customer service team was also super helpful!</p>
+        <p class="testimonial-text">The Wool Blazer fits perfectly. I've been searching for a quality blazer for months and நம்ம ஊரு புடவைக்கர் delivered. The customer service team was also super helpful!</p>
         <div class="testimonial-author">
           <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&q=80" alt="James T." class="testimonial-avatar">
           <div>
@@ -269,7 +284,7 @@
   <div class="container">
     <div class="footer-grid">
       <div class="footer-brand">
-        <a href="index.html" class="logo"><div class="logo-icon"><i class="fa-solid fa-shirt"></i></div>Namma Ooru Podavakar</a>
+        <a href="index.html" class="logo"><div class="logo-icon"><i class="fa-solid fa-shirt"></i></div>நம்ம ஊரு புடவைக்கர்</a>
         <p class="footer-desc">Your go-to destination for premium fashion. Curated styles for every occasion and every individual.</p>
         <div class="footer-social">
           <a class="social-btn" href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
@@ -281,7 +296,7 @@
       <div class="footer-col">
         <h4>Shop</h4>
         <div class="footer-links">
-          <a href="shop.html?cat=men">Men's Wear</a>
+          <span style="pointer-events:none;opacity:0.45;cursor:default;">Men's Wear</span>
           <a href="shop.html?cat=women">Women's Wear</a>
           <a href="shop.html?filter=sale">Sale</a>
           <a href="shop.html?filter=new">New Arrivals</a>
@@ -307,7 +322,7 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <span>© 2026 Namma Ooru Podavakar. All rights reserved.</span>
+      <span>© 2026 நம்ம ஊரு புடவைக்கர். All rights reserved.</span>
       <div class="footer-payment">
         <span class="payment-icon">VISA</span>
         <span class="payment-icon">MC</span>

@@ -68,7 +68,7 @@ const Cart = (() => {
   }
 
   function getShipping(subtotal) {
-    return subtotal >= 5000 || subtotal === 0 ? 0 : 99;
+    return subtotal === 0 ? 0 : 150;
   }
 
   function getTax(subtotal) {

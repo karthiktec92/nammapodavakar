@@ -27,8 +27,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function renderFeatured(filter) {
       const products = filter === "all"
-        ? getFeaturedProducts().concat(PRODUCTS.filter(p => !p.featured)).slice(0, 8)
-        : PRODUCTS.filter(p => p.category === filter).slice(0, 8);
+        ? getFeaturedProducts().concat(PRODUCTS.filter(p => !p.featured)).filter(p => p.category !== "men").slice(0, 8)
+        : PRODUCTS.filter(p => p.category === filter && p.category !== "men").slice(0, 8);
 
       featGrid.innerHTML = products.length
         ? products.map(p => renderProductCard(p)).join("")

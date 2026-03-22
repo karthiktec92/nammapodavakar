@@ -20,12 +20,16 @@ const PRODUCT_CONFIG = {
     5:  "Tailored Wool Blazer",
     6:  "Linen Summer Shorts",
     // --- WOMEN ---
-    7:  "Floral Wrap Dress",
-    8:  "High-Rise Skinny Jeans",
-    9:  "Silk Blouse",
-    10: "Knit Cardigan",
-    11: "Pleated Midi Skirt",
-    12: "Oversized Trench Coat",
+    7:  "Synthetic cotton 1",
+    8:  "Synthetic cotton 2",
+    9:  "Eligant synthetic grey",
+    10: "Eligant synthetic pink",
+    11: "Professional synthetic 1",
+    12: "Synthetic cotton 3",
+    13: "Synthetic cotton 2(Black)",
+    14: "Synthetic blue",
+    15: "Purple shiner 1",
+    16: "Purple shiner 2",
   },
 
   // ----------------------------------------------------------
@@ -39,14 +43,18 @@ const PRODUCT_CONFIG = {
     2:  { price: 6249,  originalPrice: null,  discount: 0  },
     3:  { price: 9999,  originalPrice: 12499, discount: 20 },
     4:  { price: 2499,  originalPrice: null,  discount: 0  },
-    5:  { price: 15999, originalPrice: 19999, discount: 20 },
+    5:  { price: 5000, originalPrice: 10000, discount: 20 },
     6:  { price: 3749,  originalPrice: null,  discount: 0  },
-    7:  { price: 1200,  originalPrice: 1500,  discount: 25 },
-    8:  { price: 6699,  originalPrice: null,  discount: 0  },
-    9:  { price: 8299,  originalPrice: 10799, discount: 23 },
-    10: { price: 5849,  originalPrice: null,  discount: 0  },
-    11: { price: 5399,  originalPrice: 7099,  discount: 24 },
-    12: { price: 18299, originalPrice: 23299, discount: 21 },
+    7:  { price: 800,  originalPrice: 1000,  discount: 0 },
+    8:  { price: 800,  originalPrice: 1000,  discount: 0  },
+    9:  { price: 900,  originalPrice: 1350, discount: 0 },
+    10: { price: 700,  originalPrice: 1000,  discount: 0  },
+    11: { price: 1200,  originalPrice: 1500,  discount: 0 },
+    12: { price: 800, originalPrice: 1000, discount: 0 },
+    13: { price: 850,  originalPrice: 1100,  discount: 25 },
+    14: { price: 800,  originalPrice: 1000,  discount: 25 },
+    15: { price: 700,  originalPrice: 900,  discount: 22 },
+    16: { price: 700,  originalPrice: 900,  discount: 22 },
   },
 
   // ----------------------------------------------------------
@@ -75,7 +83,7 @@ const PRODUCT_CONFIG = {
   useLocalImages: false,   // ← set to true to use local image paths for ALL products
 
   // Products listed here always use local images regardless of useLocalImages flag
-  localOverrides: [7, 8],
+  localOverrides: [7, 8, 9, 10, 11, 12, 13, 14, 15, 16],
 
   images: {
     // --- MEN ---
@@ -114,20 +122,70 @@ const PRODUCT_CONFIG = {
       "images/products/8/PXL_20260321_075556011.jpg.jpeg",
     ],
     9: [
-      "images/products/9/image-1.jpg",
-      "images/products/9/image-2.jpg",
+      "images/products/9/Thumbnail.png",
+      "images/products/9/20260322_104326.jpg.jpeg",
+      "images/products/9/20260322_104327.jpg.jpeg",
+      "images/products/9/20260322_104446.jpg.jpeg",
+      "images/products/9/20260322_104517.jpg.jpeg",
     ],
     10: [
-      "images/products/10/image-1.jpg",
-      "images/products/10/image-2.jpg",
+      "images/products/10/20260322_104635.jpg.jpeg",
+      "images/products/10/20260322_104636.jpg.jpeg",
+      "images/products/10/20260322_104643.jpg.jpeg",
+      "images/products/10/20260322_104645.jpg.jpeg",
+      "images/products/10/20260322_104811.jpg.jpeg",
+      "images/products/10/20260322_104824.jpg.jpeg",
     ],
     11: [
-      "images/products/11/image-1.jpg",
-      "images/products/11/image-2.jpg",
+      "images/products/11/Thumbnail.png",
+      "images/products/11/20260322_110429.jpg.jpeg",
+      "images/products/11/20260322_110430.jpg.jpeg",
+      "images/products/11/20260322_110431.jpg.jpeg",
+      "images/products/11/20260322_110442.jpg.jpeg",
+      "images/products/11/20260322_110444.jpg.jpeg",
+      "images/products/11/20260322_110531.jpg.jpeg",
+      "images/products/11/20260322_110533.jpg.jpeg",
     ],
     12: [
-      "images/products/12/image-1.jpg",
-      "images/products/12/image-2.jpg",
+      "images/products/12/Thumbnail.png",
+      "images/products/12/20260322_111430.jpg.jpeg",
+      "images/products/12/20260322_111439.jpg.jpeg",
+      "images/products/12/20260322_111456.jpg.jpeg",
+      "images/products/12/20260322_111458.jpg.jpeg",
+      "images/products/12/20260322_111515.jpg.jpeg",
+    ],
+    13: [
+      "images/products/13/Thumbnail.png",
+      "images/products/13/Saree.jpeg",
+      "images/products/13/Blouse.jpeg",
+      "images/products/13/Pallu.jpeg",
+      "images/products/13/20260322_110723.jpg.jpeg",
+      "images/products/13/20260322_110759.jpg.jpeg",
+      "images/products/13/20260322_110820.jpg.jpeg",
+    ],
+    14: [
+      "images/products/14/Thumbnail.png",
+      "images/products/14/20260322_111034.jpg.jpeg",
+      "images/products/14/20260322_111048.jpg.jpeg",
+      "images/products/14/20260322_111112.jpg.jpeg",
+    ],
+    15: [
+      "images/products/15/Thumbnail.jpeg",
+      "images/products/15/20260322_105429.jpg.jpeg",
+      "images/products/15/20260322_105430.jpg.jpeg",
+      "images/products/15/20260322_105454.jpg.jpeg",
+      "images/products/15/20260322_105501.jpg.jpeg",
+      "images/products/15/20260322_105521.jpg.jpeg",
+    ],
+    16: [
+      "images/products/16/Thumbnail.jpeg",
+      "images/products/16/20260322_105340(0).jpg.jpeg",
+      "images/products/16/20260322_105846(0).jpg.jpeg",
+      "images/products/16/20260322_105851.jpg.jpeg",
+      "images/products/16/20260322_105902.jpg.jpeg",
+      "images/products/16/20260322_105903.jpg.jpeg",
+      "images/products/16/20260322_105940.jpg.jpeg",
+      "images/products/16/20260322_110005.jpg.jpeg",
     ],
   },
 
@@ -148,7 +206,13 @@ const PRODUCT_CONFIG = {
   // ----------------------------------------------------------
   getPrice(productId, field, defaultValue) {
     const cfg = this.prices[productId];
-    return cfg !== undefined && cfg[field] !== undefined ? cfg[field] : defaultValue;
+    if (!cfg) return defaultValue;
+    if (field === 'discount') {
+      const p = cfg.price;
+      const op = cfg.originalPrice;
+      return (op && op > p) ? Math.round((op - p) / op * 100) : 0;
+    }
+    return cfg[field] !== undefined ? cfg[field] : defaultValue;
   },
 
   // ----------------------------------------------------------

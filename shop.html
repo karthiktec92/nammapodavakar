@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Shop all clothing at Namma Ooru Podavakar — Men &amp; Women. Filter by size, color, price and more.">
-  <title>Shop — Namma Ooru Podavakar</title>
+  <meta name="description" content="Shop all clothing at நம்ம ஊரு புடவைக்கர் — Men &amp; Women. Filter by size, color, price and more.">
+  <title>Shop — நம்ம ஊரு புடவைக்கர்</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@400;700;800&display=swap" rel="stylesheet">
@@ -23,12 +23,12 @@
   <div class="container">
     <div class="header-inner">
       <a href="index.html" class="logo">
-        <div class="logo-icon"><i class="fa-solid fa-shirt"></i></div>Namma Ooru Podavakar
+        <div class="logo-icon"><i class="fa-solid fa-shirt"></i></div>நம்ம ஊரு புடவைக்கர்
       </a>
       <nav class="main-nav" id="mainNav">
         <a href="index.html">Home</a>
         <a href="shop.html">Shop</a>
-        <a href="shop.html?cat=men">Men</a>
+        <span style="pointer-events:none;opacity:0.45;cursor:default;">Men</span>
         <a href="shop.html?cat=women">Women</a>
         <a href="about.html">About</a>
         <a href="contact.html">Contact</a>
@@ -84,11 +84,6 @@
             <span class="filter-check-label">All Products</span>
           </label>
           <label class="filter-check">
-            <input type="radio" name="category" value="men">
-            <span class="filter-check-box"><i class="fa-solid fa-check"></i></span>
-            <span class="filter-check-label">Men's Wear</span>
-          </label>
-          <label class="filter-check">
             <input type="radio" name="category" value="women">
             <span class="filter-check-box"><i class="fa-solid fa-check"></i></span>
             <span class="filter-check-label">Women's Wear</span>
@@ -106,45 +101,25 @@
         </div>
       </div>
 
-      <!-- Size Filter -->
+      <!-- With Blouse Filter -->
       <div class="filter-section">
-        <h4>Size</h4>
-        <div style="display:flex;flex-wrap:wrap;gap:8px;" id="sizeFilters">
-          <label class="filter-check" style="width:auto;">
-            <input type="checkbox" value="XS" class="size-filter"> <span class="filter-check-box"><i class="fa-solid fa-check"></i></span><span class="filter-check-label">XS</span>
-          </label>
-          <label class="filter-check" style="width:auto;">
-            <input type="checkbox" value="S" class="size-filter"> <span class="filter-check-box"><i class="fa-solid fa-check"></i></span><span class="filter-check-label">S</span>
-          </label>
-          <label class="filter-check" style="width:auto;">
-            <input type="checkbox" value="M" class="size-filter"> <span class="filter-check-box"><i class="fa-solid fa-check"></i></span><span class="filter-check-label">M</span>
-          </label>
-          <label class="filter-check" style="width:auto;">
-            <input type="checkbox" value="L" class="size-filter"> <span class="filter-check-box"><i class="fa-solid fa-check"></i></span><span class="filter-check-label">L</span>
-          </label>
-          <label class="filter-check" style="width:auto;">
-            <input type="checkbox" value="XL" class="size-filter"> <span class="filter-check-box"><i class="fa-solid fa-check"></i></span><span class="filter-check-label">XL</span>
-          </label>
-          <label class="filter-check" style="width:auto;">
-            <input type="checkbox" value="XXL" class="size-filter"> <span class="filter-check-box"><i class="fa-solid fa-check"></i></span><span class="filter-check-label">XXL</span>
-          </label>
-        </div>
+        <h4>Options</h4>
+        <label class="filter-check">
+          <input type="checkbox" id="filterWithBlouse"> <span class="filter-check-box"><i class="fa-solid fa-check"></i></span>
+          <span class="filter-check-label">With Blouse</span>
+        </label>
       </div>
 
-      <!-- Badge Filter -->
+      <!-- Special Offers Filter -->
       <div class="filter-section">
         <h4>Special Offers</h4>
         <label class="filter-check">
-          <input type="checkbox" id="filterSale"> <span class="filter-check-box"><i class="fa-solid fa-check"></i></span>
-          <span class="filter-check-label">On Sale</span>
+          <input type="checkbox" id="filterNewArrival"> <span class="filter-check-box"><i class="fa-solid fa-check"></i></span>
+          <span class="filter-check-label">New Arrival</span>
         </label>
         <label class="filter-check">
-          <input type="checkbox" id="filterNew"> <span class="filter-check-box"><i class="fa-solid fa-check"></i></span>
-          <span class="filter-check-label">New Arrivals</span>
-        </label>
-        <label class="filter-check">
-          <input type="checkbox" id="filterFeatured"> <span class="filter-check-box"><i class="fa-solid fa-check"></i></span>
-          <span class="filter-check-label">Featured</span>
+          <input type="checkbox" id="filterSyntheticCotton"> <span class="filter-check-box"><i class="fa-solid fa-check"></i></span>
+          <span class="filter-check-label">Synthetic Cotton</span>
         </label>
       </div>
 
@@ -199,7 +174,7 @@
   <div class="container">
     <div class="footer-grid">
       <div class="footer-brand">
-        <a href="index.html" class="logo"><div class="logo-icon"><i class="fa-solid fa-shirt"></i></div>Namma Ooru Podavakar</a>
+        <a href="index.html" class="logo"><div class="logo-icon"><i class="fa-solid fa-shirt"></i></div>நம்ம ஊரு புடவைக்கர்</a>
         <p class="footer-desc">Premium fashion for every style and occasion.</p>
         <div class="footer-social">
           <a class="social-btn" href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
@@ -210,7 +185,7 @@
       <div class="footer-col">
         <h4>Shop</h4>
         <div class="footer-links">
-          <a href="shop.html?cat=men">Men's Wear</a>
+          <span style="pointer-events:none;opacity:0.45;cursor:default;">Men's Wear</span>
           <a href="shop.html?cat=women">Women's Wear</a>
         </div>
       </div>
@@ -225,7 +200,7 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <span>© 2026 Namma Ooru Podavakar. All rights reserved.</span>
+      <span>© 2026 நம்ம ஊரு புடவைக்கர். All rights reserved.</span>
       <div class="footer-payment">
         <span class="payment-icon">VISA</span>
         <span class="payment-icon">MC</span>

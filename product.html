@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="View product details at Namma Ooru Podavakar.">
-  <title>Product — Namma Ooru Podavakar</title>
+  <meta name="description" content="View product details at நம்ம ஊரு புடவைக்கர்.">
+  <title>Product — நம்ம ஊரு புடவைக்கர்</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@400;700;800&display=swap" rel="stylesheet">
@@ -18,11 +18,11 @@
 <header class="site-header" id="siteHeader">
   <div class="container">
     <div class="header-inner">
-      <a href="index.html" class="logo"><div class="logo-icon"><i class="fa-solid fa-shirt"></i></div>Namma Ooru Podavakar</a>
+      <a href="index.html" class="logo"><div class="logo-icon"><i class="fa-solid fa-shirt"></i></div>நம்ம ஊரு புடவைக்கர்</a>
       <nav class="main-nav" id="mainNav">
         <a href="index.html">Home</a>
         <a href="shop.html">Shop</a>
-        <a href="shop.html?cat=men">Men</a>
+        <span style="pointer-events:none;opacity:0.45;cursor:default;">Men</span>
         <a href="shop.html?cat=women">Women</a>
         <a href="about.html">About</a>
         <a href="contact.html">Contact</a>
@@ -74,7 +74,6 @@
     <div class="tabs-nav">
       <button class="tab-btn active" data-tab="description">Description</button>
       <button class="tab-btn" data-tab="details">Details & Care</button>
-      <button class="tab-btn" data-tab="sizing">Size Guide</button>
       <button class="tab-btn" data-tab="reviews">Reviews (<span id="reviewTabCount">0</span>)</button>
     </div>
     <div class="tab-content active" id="tab-description">
@@ -92,24 +91,7 @@
         <li>Do not dry clean</li>
       </ul>
     </div>
-    <div class="tab-content" id="tab-sizing">
-      <p style="margin-bottom:20px;">Use this guide to find your perfect fit. Measurements are in inches.</p>
-      <div style="overflow-x:auto;">
-        <table class="size-table">
-          <thead>
-            <tr><th>Size</th><th>Chest</th><th>Waist</th><th>Hips</th><th>Length</th></tr>
-          </thead>
-          <tbody>
-            <tr><td>XS</td><td>32–34</td><td>24–26</td><td>34–36</td><td>25"</td></tr>
-            <tr><td>S</td><td>34–36</td><td>26–28</td><td>36–38</td><td>26"</td></tr>
-            <tr><td>M</td><td>36–38</td><td>28–30</td><td>38–40</td><td>27"</td></tr>
-            <tr><td>L</td><td>38–40</td><td>30–32</td><td>40–42</td><td>28"</td></tr>
-            <tr><td>XL</td><td>40–42</td><td>32–34</td><td>42–44</td><td>29"</td></tr>
-            <tr><td>XXL</td><td>42–44</td><td>34–36</td><td>44–46</td><td>30"</td></tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
+
     <div class="tab-content" id="tab-reviews">
       <div class="reviews-summary">
         <div class="review-avg">
@@ -126,28 +108,37 @@
         </div>
       </div>
       <div id="reviewsList">
-        <div class="review-item">
-          <div class="review-header">
-            <div class="review-avatar"><img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=80&q=70" alt="User"></div>
-            <div>
-              <div class="review-author-name">Alex R.</div>
-              <div class="review-author-date">February 14, 2026</div>
-              <div class="stars" style="font-size:.8rem;color:#f4a02a;margin-top:3px;"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
-            </div>
+        <p style="color:var(--text-muted);font-size:.9rem;padding:12px 0;" id="noReviewsMsg">No reviews yet. Be the first to review this product!</p>
+      </div>
+
+      <!-- Write a Review Form -->
+      <div class="review-form-wrap" style="margin-top:32px;border-top:1px solid var(--border);padding-top:28px;">
+        <h3 style="font-size:1.1rem;font-weight:700;margin-bottom:18px;">Write a Review</h3>
+        <form id="reviewForm" onsubmit="submitReview(event)">
+          <div style="margin-bottom:14px;">
+            <label style="font-size:.82rem;font-weight:600;display:block;margin-bottom:6px;">Your Name <span style="color:red;">*</span></label>
+            <input type="text" id="reviewName" placeholder="Enter your name" required
+              style="width:100%;padding:10px 14px;border:1px solid var(--border);border-radius:8px;font-size:.92rem;outline:none;">
           </div>
-          <p class="review-text">Excellent quality! Fits true to size and the fabric feels premium. Exactly what I expected from the photos.</p>
-        </div>
-        <div class="review-item">
-          <div class="review-header">
-            <div class="review-avatar"><img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=80&q=70" alt="User"></div>
-            <div>
-              <div class="review-author-name">Maria L.</div>
-              <div class="review-author-date">January 30, 2026</div>
-              <div class="stars" style="font-size:.8rem;color:#f4a02a;margin-top:3px;"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i></div>
+          <div style="margin-bottom:14px;">
+            <label style="font-size:.82rem;font-weight:600;display:block;margin-bottom:6px;">Rating <span style="color:red;">*</span></label>
+            <div id="starRatingInput" style="display:flex;gap:6px;font-size:1.5rem;color:#ccc;cursor:pointer;">
+              <i class="fa-regular fa-star" data-value="1"></i>
+              <i class="fa-regular fa-star" data-value="2"></i>
+              <i class="fa-regular fa-star" data-value="3"></i>
+              <i class="fa-regular fa-star" data-value="4"></i>
+              <i class="fa-regular fa-star" data-value="5"></i>
             </div>
+            <input type="hidden" id="reviewRating" value="0">
           </div>
-          <p class="review-text">Lovely item! Colour is spot on to the website photos. Ordering was easy, delivery was fast. Will order again!</p>
-        </div>
+          <div style="margin-bottom:18px;">
+            <label style="font-size:.82rem;font-weight:600;display:block;margin-bottom:6px;">Your Review <span style="color:red;">*</span></label>
+            <textarea id="reviewText" rows="4" placeholder="Share your experience with this product…" required
+              style="width:100%;padding:10px 14px;border:1px solid var(--border);border-radius:8px;font-size:.92rem;resize:vertical;outline:none;"></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary" style="min-width:160px;">Submit Review</button>
+        </form>
+        <div id="reviewSuccess" style="display:none;color:var(--success);font-weight:600;margin-top:14px;"><i class="fa-solid fa-circle-check"></i> Thank you! Your review has been published.</div>
       </div>
     </div>
   </div>
@@ -172,7 +163,7 @@
   <div class="container">
     <div class="footer-grid">
       <div class="footer-brand">
-        <a href="index.html" class="logo"><div class="logo-icon"><i class="fa-solid fa-shirt"></i></div>Namma Ooru Podavakar</a>
+        <a href="index.html" class="logo"><div class="logo-icon"><i class="fa-solid fa-shirt"></i></div>நம்ம ஊரு புடவைக்கர்</a>
         <p class="footer-desc">Premium fashion for every style and occasion.</p>
         <div class="footer-social">
           <a class="social-btn" href="#"><i class="fa-brands fa-facebook-f"></i></a>
@@ -182,7 +173,7 @@
       </div>
       <div class="footer-col"><h4>Shop</h4>
         <div class="footer-links">
-          <a href="shop.html?cat=men">Men's Wear</a>
+          <span style="pointer-events:none;opacity:0.45;cursor:default;">Men's Wear</span>
           <a href="shop.html?cat=women">Women's Wear</a>
         </div>
       </div>
@@ -195,7 +186,7 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <span>© 2026 Namma Ooru Podavakar. All rights reserved.</span>
+      <span>© 2026 நம்ம ஊரு புடவைக்கர். All rights reserved.</span>
       <div class="footer-payment">
         <span class="payment-icon">VISA</span>
         <span class="payment-icon">MC</span>

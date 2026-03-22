@@ -2,6 +2,123 @@
 //  StyleHub — Product Detail Page (product.js)
 // ============================================================
 
+// ---------- Star Rating Input ----------
+document.addEventListener("DOMContentLoaded", () => {
+  document.addEventListener("click", (e) => {
+    const star = e.target.closest("#starRatingInput i");
+    if (!star) return;
+    const val = parseInt(star.dataset.value);
+    document.getElementById("reviewRating").value = val;
+    document.querySelectorAll("#starRatingInput i").forEach((s, idx) => {
+      s.className = idx < val ? "fa-solid fa-star" : "fa-regular fa-star";
+      s.style.color = idx < val ? "#f4a02a" : "#ccc";
+    });
+  });
+});
+
+// ---------- Review Submission ----------
+// Reviews are stored per-product in localStorage so they persist across page loads.
+function _getStoredReviews(productId) {
+  try { return JSON.parse(localStorage.getItem(`reviews_${productId}`) || "[]"); } catch { return []; }
+}
+function _saveReviews(productId, reviews) {
+  localStorage.setItem(`reviews_${productId}`, JSON.stringify(reviews));
+}
+
+function loadStoredReviews(product) {
+  const reviews = _getStoredReviews(product.id);
+  const list = document.getElementById("reviewsList");
+  const noMsg = document.getElementById("noReviewsMsg");
+  const countEl = document.getElementById("reviewTabCount");
+  const avgEl = document.getElementById("avgRatingNum");
+  const starsEl = document.getElementById("avgRatingStars");
+  const avgCountEl = document.getElementById("avgRatingCount");
+
+  if (reviews.length === 0) {
+    if (noMsg) noMsg.style.display = "";
+    if (countEl) countEl.textContent = "0";
+    if (avgEl) avgEl.textContent = product.rating.toFixed(1);
+    if (starsEl) starsEl.innerHTML = generateStars(product.rating);
+    if (avgCountEl) avgCountEl.textContent = "0 reviews";
+    return;
+  }
+
+  if (noMsg) noMsg.style.display = "none";
+  if (countEl) countEl.textContent = reviews.length;
+
+  const avgRating = reviews.reduce((s, r) => s + r.rating, 0) / reviews.length;
+  if (avgEl) avgEl.textContent = avgRating.toFixed(1);
+  if (starsEl) starsEl.innerHTML = generateStars(avgRating);
+  if (avgCountEl) avgCountEl.textContent = `Based on ${reviews.length} review${reviews.length !== 1 ? "s" : ""}`;
+
+  // Rebuild distribution bars
+  const dist = [0,0,0,0,0];
+  reviews.forEach(r => { if (r.rating >= 1 && r.rating <= 5) dist[r.rating - 1]++; });
+  const bars = document.querySelectorAll(".review-bar-fill");
+  const barLabels = document.querySelectorAll(".review-bar-row span:last-child");
+  [5,4,3,2,1].forEach((star, i) => {
+    const pct = reviews.length ? Math.round((dist[star-1] / reviews.length) * 100) : 0;
+    if (bars[i]) bars[i].style.width = pct + "%";
+    if (barLabels[i]) barLabels[i].textContent = pct + "%";
+  });
+
+  const reviewItems = reviews.map(r => `
+    <div class="review-item">
+      <div class="review-header">
+        <div class="review-avatar" style="background:var(--primary);color:#fff;display:flex;align-items:center;justify-content:center;width:42px;height:42px;border-radius:50%;font-weight:700;font-size:1rem;">
+          ${r.name.charAt(0).toUpperCase()}
+        </div>
+        <div>
+          <div class="review-author-name">${r.name}</div>
+          <div class="review-author-date">${r.date}</div>
+          <div class="stars" style="font-size:.8rem;color:#f4a02a;margin-top:3px;">${generateStars(r.rating)}</div>
+        </div>
+      </div>
+      <p class="review-text">${r.text}</p>
+    </div>`).join("");
+  if (list) list.innerHTML = (noMsg ? noMsg.outerHTML : "") + reviewItems;
+  if (noMsg) document.getElementById("noReviewsMsg").style.display = "none";
+}
+
+function submitReview(e) {
+  e.preventDefault();
+  const name = document.getElementById("reviewName").value.trim();
+  const text = document.getElementById("reviewText").value.trim();
+  const rating = parseInt(document.getElementById("reviewRating").value);
+
+  if (!name || !text) return;
+  if (!rating || rating < 1 || rating > 5) {
+    alert("Please select a star rating.");
+    return;
+  }
+
+  const product = window._productState?.product;
+  if (!product) return;
+
+  const review = {
+    name,
+    text,
+    rating,
+    date: new Date().toLocaleDateString("en-IN", { year:"numeric", month:"long", day:"numeric" })
+  };
+
+  const reviews = _getStoredReviews(product.id);
+  reviews.unshift(review);
+  _saveReviews(product.id, reviews);
+
+  // Reset form
+  document.getElementById("reviewForm").reset();
+  document.querySelectorAll("#starRatingInput i").forEach(s => {
+    s.className = "fa-regular fa-star";
+    s.style.color = "#ccc";
+  });
+  document.getElementById("reviewRating").value = "0";
+  document.getElementById("reviewSuccess").style.display = "";
+  setTimeout(() => { const el = document.getElementById("reviewSuccess"); if (el) el.style.display = "none"; }, 4000);
+
+  loadStoredReviews(product);
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   const params = new URLSearchParams(window.location.search);
   const productId = params.get("id");
@@ -24,7 +141,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // Update page title
-  document.title = `${product.name} — Namma Ooru Podavakar`;
+  document.title = `${product.name} — நம்ம ஊரு புடவைக்கர்`;
   document.getElementById("breadcrumbName").textContent = product.name;
 
   // Update meta description
@@ -50,20 +167,17 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // Populate tab data
-  document.getElementById("tabDescription").textContent = product.description;
+  document.getElementById("tabDescription").innerHTML = `${product.description}<br><em style="font-size:.82rem;color:var(--text-muted);">Please refer real time image of the product.</em>`;
   document.getElementById("tabMaterial").textContent = product.material;
   document.getElementById("tabFeatures").innerHTML = [
     "Premium quality materials",
     `Made from ${product.material}`,
-    "Standard fit — see size guide for exact measurements",
+    "Standard fit — please check available sizes above",
     "Easy care — machine washable",
     "Ethically manufactured"
   ].map(f => `<li>${f}</li>`).join("");
 
-  document.getElementById("reviewTabCount").textContent = product.reviewCount;
-  document.getElementById("avgRatingNum").textContent = product.rating.toFixed(1);
-  document.getElementById("avgRatingStars").innerHTML = generateStars(product.rating);
-  document.getElementById("avgRatingCount").textContent = `Based on ${product.reviewCount} reviews`;
+  loadStoredReviews(product);
 });
 
 function renderProductDetail(product) {
@@ -88,9 +202,9 @@ function renderProductDetail(product) {
     <button class="size-btn ${size === selectedSize ? "active" : ""}" onclick="selectSize(this, '${size}')">${size}</button>
   `).join("");
 
-  const colorsHTML = product.colors.map((c, i) => `
-    <span class="product-color ${i === 0 ? "active" : ""}" data-color="${c}" onclick="selectColor(this, '${c}')"
-      style="background:${c};${c === "#ffffff" || c === "#FFFFFF" ? "border:2px solid #ccc;" : ""}"></span>
+  const colorsHTML = product.colors.slice(0, 1).map((c) => `
+    <span class="product-color active" data-color="${c}"
+      style="background:${c};${c === "#ffffff" || c === "#FFFFFF" ? "border:2px solid #ccc;" : ""}cursor:default;"></span>
   `).join("");
 
   document.getElementById("productContent").innerHTML = `
@@ -116,7 +230,7 @@ function renderProductDetail(product) {
           <a href="#tab-reviews" onclick="document.querySelector('[data-tab=reviews]').click();" style="color:var(--secondary);font-weight:500;">Write a Review</a>
         </div>
         <div class="product-info-price">${priceHTML}</div>
-        <p class="product-info-description">${product.description}</p>
+        <p class="product-info-description">${product.description}<br><em style="font-size:.82rem;color:var(--text-muted);">Please refer real time image of the product.</em></p>
 
         <!-- Color -->
         <div class="option-label">Color: <span id="colorLabel" style="font-weight:400;text-transform:none;letter-spacing:0;">${selectedColor}</span></div>
@@ -124,7 +238,7 @@ function renderProductDetail(product) {
 
         <!-- Size (men only) -->
         ${product.category !== 'women' ? `
-        <div class="option-label">Size: <span id="sizeLabel" style="font-weight:400;text-transform:none;letter-spacing:0;">${selectedSize}</span> <a href="#tab-sizing" onclick="document.querySelector('[data-tab=sizing]').click();">Size Guide</a></div>
+        <div class="option-label">Size: <span id="sizeLabel" style="font-weight:400;text-transform:none;letter-spacing:0;">${selectedSize}</span></div>
         <div class="size-options">${sizesHTML}</div>
         ` : ''}
 
@@ -157,7 +271,7 @@ function renderProductDetail(product) {
           <div class="product-meta-item"><strong>Material:</strong> <span>${product.material}</span></div>
           <div class="product-meta-item"><strong>Availability:</strong> <span style="color:var(--success);"><i class="fa-solid fa-circle-check"></i> In Stock & Ready to Ship</span></div>
           <div class="product-meta-item"><strong>Shipping:</strong> <span>Standard 3–5 days | Express 1–2 days</span></div>
-          <div class="product-meta-item"><strong>Returns:</strong> <span>Free 30-day returns</span></div>
+          <div class="product-meta-item"><strong>Returns:</strong> <span>Return accepted if it is damaged product</span></div>
         </div>
 
         <!-- Share -->
@@ -175,6 +289,29 @@ function renderProductDetail(product) {
 
   // Store state
   window._productState = { product, selectedSize, selectedColor, qty: 1 };
+
+  // Attach cursor-tracked zoom to the main gallery image
+  initGalleryZoom();
+}
+
+function initGalleryZoom() {
+  const container = document.getElementById("galleryMain");
+  if (!container) return;
+  const img = document.getElementById("mainImage");
+  if (!img) return;
+
+  container.addEventListener("mousemove", (e) => {
+    const rect = container.getBoundingClientRect();
+    const x = (((e.clientX - rect.left) / rect.width) * 100).toFixed(2);
+    const y = (((e.clientY - rect.top) / rect.height) * 100).toFixed(2);
+    img.style.transformOrigin = `${x}% ${y}%`;
+    img.style.transform = "scale(1.5)";
+  });
+
+  container.addEventListener("mouseleave", () => {
+    img.style.transform = "";
+    img.style.transformOrigin = "";
+  });
 }
 
 function switchImage(index, thumbEl) {
@@ -230,14 +367,14 @@ function toggleWishlistDetail(productId) {
 
 function renderRelatedProducts(currentProduct) {
   const related = PRODUCTS
-    .filter(p => p.id !== currentProduct.id && p.category === currentProduct.category)
+    .filter(p => p.id !== currentProduct.id && p.category === currentProduct.category && p.category !== "men")
     .slice(0, 4);
 
   const grid = document.getElementById("relatedGrid");
   if (grid && related.length > 0) {
     grid.innerHTML = related.map(p => renderProductCard(p)).join("");
   } else if (grid) {
-    const allOther = PRODUCTS.filter(p => p.id !== currentProduct.id).slice(0, 4);
+    const allOther = PRODUCTS.filter(p => p.id !== currentProduct.id && p.category !== "men").slice(0, 4);
     grid.innerHTML = allOther.map(p => renderProductCard(p)).join("");
   }
 }
