@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Your shopping cart at Namma Ooru Podavakar.">
+  <title>Cart — Namma Ooru Podavakar</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@400;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="announcement-bar">🚚 Free shipping by Podavakar &nbsp;|&nbsp; Delivery within a day</div>
+
+<header class="site-header" id="siteHeader">
+  <div class="container">
+    <div class="header-inner">
+      <a href="index.html" class="logo"><div class="logo-icon"><i class="fa-solid fa-shirt"></i></div>Namma Ooru Podavakar</a>
+      <nav class="main-nav" id="mainNav">
+        <a href="index.html">Home</a>
+        <a href="shop.html">Shop</a>
+        <a href="shop.html?cat=men">Men</a>
+        <a href="shop.html?cat=women">Women</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <div class="header-actions">
+        <a href="cart.html" class="icon-btn" style="position:relative;">
+          <i class="fa-solid fa-bag-shopping"></i>
+          <span class="cart-badge" style="display:none;">0</span>
+        </a>
+        <div class="menu-toggle" id="menuToggle"><span></span><span></span><span></span></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div style="background:var(--bg-section);padding:14px 0;border-bottom:1px solid var(--border);">
+  <div class="container">
+    <nav style="display:flex;gap:8px;font-size:.82rem;color:var(--text-muted);">
+      <a href="index.html" style="color:var(--text-muted);">Home</a><span>/</span><span style="color:var(--text-dark);">Shopping Cart</span>
+    </nav>
+  </div>
+</div>
+
+<!-- Cart Section -->
+<section class="cart-section">
+  <div class="container">
+    <!-- Empty State -->
+    <div id="cartEmpty" class="cart-empty" style="display:none;">
+      <i class="fa-solid fa-bag-shopping"></i>
+      <h3>Your cart is empty</h3>
+      <p>Looks like you haven't added anything yet. Explore our collection!</p>
+      <a href="shop.html" class="btn btn-primary">Start Shopping</a>
+    </div>
+
+    <!-- Cart Content -->
+    <div id="cartContent" style="display:none;">
+      <div class="cart-layout">
+
+        <!-- Items -->
+        <div class="cart-items-col">
+          <div class="cart-header">
+            <h2>Shopping Cart <span id="cartItemCount" style="color:var(--text-muted);font-size:1rem;font-weight:400;"></span></h2>
+            <button onclick="Cart.clear(); renderCartPage();" style="background:none;border:none;cursor:pointer;font-size:.85rem;color:var(--secondary);font-weight:600;"><i class="fa-solid fa-trash"></i> Clear Cart</button>
+          </div>
+          <div id="cartItemsList"></div>
+        </div>
+
+        <!-- Summary -->
+        <div class="cart-summary">
+          <h3>Order Summary</h3>
+          <div class="summary-row"><span>Subtotal</span><span id="summarySubtotal">₹0</span></div>
+          <div class="summary-row"><span>Shipping</span><span id="summaryShipping">₹0</span></div>
+          <div class="summary-row"><span>GST (18%)</span><span id="summaryTax">₹0</span></div>
+          <div class="summary-row total"><span>Total</span><span id="summaryTotal">₹0</span></div>
+
+          <div class="coupon-field">
+            <input type="text" id="couponInput" placeholder="Coupon code" autocomplete="off">
+            <button class="btn btn-outline btn-sm" onclick="applyCoupon()">Apply</button>
+          </div>
+          <div id="couponMsg" style="font-size:.8rem;margin-top:-10px;margin-bottom:12px;"></div>
+
+          <a href="checkout.html" class="btn btn-primary btn-block btn-lg" style="margin-top:10px;">
+            Proceed to Checkout <i class="fa-solid fa-arrow-right"></i>
+          </a>
+          <a href="shop.html" class="btn btn-outline btn-block" style="margin-top:10px;">
+            <i class="fa-solid fa-arrow-left"></i> Continue Shopping
+          </a>
+
+          <div style="margin-top:24px;padding-top:20px;border-top:1px solid var(--border);">
+            <div style="font-size:.78rem;color:var(--text-muted);text-align:center;margin-bottom:12px;">We accept</div>
+            <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;">
+              <span class="payment-icon" style="background:var(--bg-section);color:var(--text-dark);font-size:.7rem;">VISA</span>
+              <span class="payment-icon" style="background:var(--bg-section);color:var(--text-dark);font-size:.7rem;">MC</span>
+              <span class="payment-icon" style="background:var(--bg-section);color:var(--text-dark);font-size:.7rem;">AMEX</span>
+              <span class="payment-icon" style="background:var(--bg-section);color:var(--text-dark);font-size:.7rem;">PayPal</span>
+              <span class="payment-icon" style="background:var(--bg-section);color:var(--text-dark);font-size:.7rem;">Apple Pay</span>
+            </div>
+          </div>
+
+          <div style="margin-top:20px;display:flex;align-items:center;gap:8px;font-size:.78rem;color:var(--success);justify-content:center;">
+            <i class="fa-solid fa-lock"></i> Secure SSL encrypted checkout
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- You May Also Like -->
+<section class="products-section" style="background:var(--bg-section);padding:60px 0;">
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <span class="tag">Don't Miss Out</span>
+        <h2 class="section-title">You May Also Like</h2>
+      </div>
+      <a href="shop.html" class="btn btn-outline">View All</a>
+    </div>
+    <div class="products-grid" id="suggestedGrid"></div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="logo"><div class="logo-icon"><i class="fa-solid fa-shirt"></i></div>Namma Ooru Podavakar</a>
+        <p class="footer-desc">Premium fashion for every style and occasion.</p>
+        <div class="footer-social">
+          <a class="social-btn" href="#"><i class="fa-brands fa-facebook-f"></i></a>
+          <a class="social-btn" href="#"><i class="fa-brands fa-instagram"></i></a>
+          <a class="social-btn" href="#"><i class="fa-brands fa-x-twitter"></i></a>
+        </div>
+      </div>
+      <div class="footer-col"><h4>Help</h4>
+        <div class="footer-links">
+          <a href="contact.html">Contact Us</a>
+          <a href="#">Returns Policy</a>
+          <a href="#">Track My Order</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom"><span>© 2026 Namma Ooru Podavakar. All rights reserved.</span></div>
+  </div>
+</footer>
+
+<script src="js/config.js"></script>
+<script src="js/data.js"></script>
+<script src="js/cart.js"></script>
+<script>
+  const VALID_COUPONS = { STYLE15: 15, SAVE10: 10, WELCOME20: 20 };
+  let appliedDiscount = 0;
+
+  function renderCartPage() {
+    const items = Cart.getAll();
+    const empty = document.getElementById("cartEmpty");
+    const content = document.getElementById("cartContent");
+
+    if (items.length === 0) {
+      empty.style.display = "block";
+      content.style.display = "none";
+      return;
+    }
+    empty.style.display = "none";
+    content.style.display = "block";
+
+    document.getElementById("cartItemCount").textContent = `(${Cart.getCount()} item${Cart.getCount() !== 1 ? "s" : ""})`;
+
+    document.getElementById("cartItemsList").innerHTML = items.map(item => `
+      <div class="cart-item" id="item-${item.key.replace(/[^a-z0-9]/gi,'_')}">
+        <div class="cart-item-img">
+          <a href="product.html?id=${item.id}">
+            <img src="${item.image}" alt="${item.name}" loading="lazy">
+          </a>
+        </div>
+        <div class="cart-item-info">
+          <div class="cart-item-name"><a href="product.html?id=${item.id}">${item.name}</a></div>
+          <div class="cart-item-meta">Size: ${item.size} &nbsp;·&nbsp; Category: ${item.category}</div>
+          <div class="cart-item-price">${formatPrice(item.price)}</div>
+          <div style="display:flex;align-items:center;gap:14px;margin-top:10px;">
+            <div class="quantity-control">
+              <button class="qty-btn" onclick="changeQty('${item.key}', ${item.qty - 1})">−</button>
+              <input class="qty-input" type="number" value="${item.qty}" min="1" max="10"
+                onchange="changeQty('${item.key}', parseInt(this.value))" style="width:50px;border-bottom:none;border-top:none;">
+              <button class="qty-btn" onclick="changeQty('${item.key}', ${item.qty + 1})">+</button>
+            </div>
+            <button class="remove-btn" onclick="Cart.remove('${item.key}'); renderCartPage();">
+              <i class="fa-solid fa-trash-can"></i> Remove
+            </button>
+          </div>
+        </div>
+        <div class="cart-item-right">
+          <div class="cart-item-total">${formatPrice(item.price * item.qty)}</div>
+        </div>
+      </div>
+    `).join("");
+
+    updateSummary();
+    renderSuggested();
+  }
+
+  function changeQty(key, qty) {
+    Cart.updateQty(key, qty);
+    renderCartPage();
+  }
+
+  function updateSummary() {
+    const sub = Cart.getSubtotal();
+    const disc = sub * (appliedDiscount / 100);
+    const discSub = sub - disc;
+    const ship = Cart.getShipping(discSub);
+    const tax = Cart.getTax(discSub);
+    const total = discSub + ship + tax;
+
+    document.getElementById("summarySubtotal").textContent = formatPrice(sub);
+    document.getElementById("summaryShipping").textContent = ship === 0 ? "FREE" : formatPrice(ship);
+    document.getElementById("summaryTax").textContent = formatPrice(tax);
+    document.getElementById("summaryTotal").textContent = formatPrice(total);
+  }
+
+  function applyCoupon() {
+    const code = document.getElementById("couponInput").value.trim().toUpperCase();
+    const msg = document.getElementById("couponMsg");
+    if (VALID_COUPONS[code]) {
+      appliedDiscount = VALID_COUPONS[code];
+      msg.style.color = "var(--success)";
+      msg.textContent = `✓ Coupon applied! ${appliedDiscount}% off`;
+      updateSummary();
+    } else {
+      msg.style.color = "var(--danger)";
+      msg.textContent = "✗ Invalid coupon code";
+    }
+  }
+
+  function renderSuggested() {
+    const suggested = PRODUCTS.sort(() => Math.random() - 0.5).slice(0, 4);
+    document.getElementById("suggestedGrid").innerHTML = suggested.map(p => renderProductCard(p)).join("");
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    renderCartPage();
+    // Listen to cart changes
+    const origSave = Cart.updateBadge;
+    Cart.updateBadge = function() {
+      origSave.call(this);
+      updateSummary();
+    };
+  });
+</script>
+</body>
+</html>

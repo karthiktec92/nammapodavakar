@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Namma Ooru Podavakar — Premium fashion for men and women. Shop the latest trends with free shipping over ₹5,000.">
+  <meta name="keywords" content="fashion, clothing, men, women, online shop">
+  <meta property="og:title" content="Namma Ooru Podavakar — Wear Your Story">
+  <meta property="og:description" content="Premium clothing for every style and occasion.">
+  <meta property="og:type" content="website">
+  <title>Namma Ooru Podavakar — Wear Your Story</title>
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@400;700;800&display=swap" rel="stylesheet">
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- Announcement Bar -->
+<div class="announcement-bar">
+  🚚 Free shipping by Podavakar &nbsp;|&nbsp; Delivery within a day
+</div>
+
+<!-- Header -->
+<header class="site-header" id="siteHeader">
+  <div class="container">
+    <div class="header-inner">
+      <a href="index.html" class="logo">
+        <div class="logo-icon"><i class="fa-solid fa-shirt"></i></div>
+        Namma Ooru Podavakar
+      </a>
+      <nav class="main-nav" id="mainNav">
+        <a href="index.html">Home</a>
+        <a href="shop.html">Shop</a>
+        <a href="shop.html?cat=men">Men</a>
+        <a href="shop.html?cat=women">Women</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <div class="header-actions">
+        <button class="icon-btn" aria-label="Search" id="searchToggle">
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
+        <a href="cart.html" class="icon-btn" aria-label="Cart" style="position:relative;">
+          <i class="fa-solid fa-bag-shopping"></i>
+          <span class="cart-badge" style="display:none;">0</span>
+        </a>
+        <button class="icon-btn" aria-label="Open Cart Drawer" data-open-cart>
+          <i class="fa-solid fa-cart-shopping"></i>
+          <span class="cart-badge" style="display:none;">0</span>
+        </button>
+        <div class="menu-toggle" id="menuToggle" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- Search Bar (hidden by default) -->
+<div id="searchBar" style="display:none;background:var(--white);border-bottom:1px solid var(--border);padding:14px 0;">
+  <div class="container">
+    <form onsubmit="handleSearch(event)" style="display:flex;gap:10px;max-width:600px;margin:0 auto;">
+      <input type="search" id="searchInput" placeholder="Search for shirts, dresses, jackets…"
+        style="flex:1;padding:12px 18px;border:2px solid var(--border);border-radius:50px;font-size:.9rem;outline:none;background:var(--bg-light);">
+      <button class="btn btn-primary btn-sm" type="submit">Search</button>
+      <button type="button" onclick="document.getElementById('searchBar').style.display='none'" class="btn btn-outline btn-sm">✕</button>
+    </form>
+  </div>
+</div>
+
+<!-- ==================== HERO ==================== -->
+<section class="hero">
+  <div class="container" style="display:contents;">
+    <div class="hero-content" style="padding-left:max(24px, calc((100vw - 1280px)/2 + 24px));">
+      <span class="tag">New Collection · Spring 2026</span>
+      <h1 class="hero-title">
+        Wear Your<br><span>Story</span>,<br>Define Your<br>Style
+      </h1>
+      <p class="hero-desc">
+        Curated fashion from premium materials — crafted for comfort, designed for confidence.
+        Discover styles that speak for you.
+      </p>
+      <div class="hero-actions">
+        <a href="shop.html" class="btn btn-primary btn-lg">
+          Shop Now <i class="fa-solid fa-arrow-right"></i>
+        </a>
+        <a href="about.html" class="btn btn-outline btn-lg">Our Story</a>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat"><strong>2,500+</strong><span>Products</span></div>
+        <div class="hero-stat"><strong>98%</strong><span>Happy Customers</span></div>
+        <div class="hero-stat"><strong>120+</strong><span>Brands</span></div>
+      </div>
+    </div>
+    <div class="hero-image">
+      <img src="images/main_page.jpg" alt="Fashion model" loading="eager">
+      <div class="hero-image-badge">
+        <div class="badge-icon"><i class="fa-solid fa-star"></i></div>
+        <div>
+          <strong>4.9 / 5 Rating</strong>
+          <span>From 12,000+ reviews</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== CATEGORIES ==================== -->
+<section class="categories-section section-pad" style="padding-top:70px;">
+  <div class="container">
+    <div class="text-center" style="margin-bottom:40px;">
+      <span class="tag">Shop by Category</span>
+      <h2 class="section-title">Find Your Style</h2>
+      <p class="section-subtitle">Explore our carefully curated collections</p>
+    </div>
+    <div class="categories-grid" id="categoriesGrid">
+      <!-- Rendered by JS -->
+    </div>
+  </div>
+</section>
+
+<!-- ==================== FEATURED PRODUCTS ==================== -->
+<section class="products-section">
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <span class="tag">Hand-Picked For You</span>
+        <h2 class="section-title">Featured Collection</h2>
+      </div>
+      <div class="filter-tabs">
+        <button class="filter-tab active" data-filter="all">All</button>
+        <button class="filter-tab" data-filter="men">Men</button>
+        <button class="filter-tab" data-filter="women">Women</button>
+      </div>
+    </div>
+    <div class="products-grid" id="featuredGrid">
+      <!-- Rendered by JS -->
+    </div>
+    <div class="text-center" style="margin-top:50px;">
+      <a href="shop.html" class="btn btn-outline btn-lg">View All Products <i class="fa-solid fa-arrow-right"></i></a>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== PROMO BANNER ==================== -->
+<section class="promo-banner">
+  <div class="container">
+    <div class="promo-badge">Limited Time Offer</div>
+    <h2 class="promo-title">End of Season <span>Sale</span></h2>
+    <p class="promo-desc">Up to 40% off on selected items. Don't miss out on these exclusive deals.</p>
+    <div class="countdown" id="countdown">
+      <div class="countdown-unit"><span class="countdown-num" id="cd-days">00</span><span class="countdown-label">Days</span></div>
+      <span class="countdown-sep">:</span>
+      <div class="countdown-unit"><span class="countdown-num" id="cd-hours">00</span><span class="countdown-label">Hours</span></div>
+      <span class="countdown-sep">:</span>
+      <div class="countdown-unit"><span class="countdown-num" id="cd-mins">00</span><span class="countdown-label">Mins</span></div>
+      <span class="countdown-sep">:</span>
+      <div class="countdown-unit"><span class="countdown-num" id="cd-secs">00</span><span class="countdown-label">Secs</span></div>
+    </div>
+    <a href="shop.html?filter=sale" class="btn btn-secondary btn-lg">Shop the Sale</a>
+  </div>
+</section>
+
+<!-- ==================== FEATURES ==================== -->
+<section class="features-strip">
+  <div class="container">
+    <div class="features-grid">
+      <div class="feature-item">
+        <div class="feature-icon"><i class="fa-solid fa-truck-fast"></i></div>
+        <div>
+          <h4>Free Shipping</h4>
+          <p>On all orders over ₹5,000. India-wide delivery available.</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon"><i class="fa-solid fa-rotate-left"></i></div>
+        <div>
+          <h4>Easy Returns</h4>
+          <p>30-day hassle-free returns. No questions asked.</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon"><i class="fa-solid fa-shield-halved"></i></div>
+        <div>
+          <h4>Secure Payment</h4>
+          <p>SSL encrypted checkout. Your data is always safe.</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon"><i class="fa-solid fa-headset"></i></div>
+        <div>
+          <h4>24/7 Support</h4>
+          <p>Friendly customer support available around the clock.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== TESTIMONIALS ==================== -->
+<section class="testimonials-section">
+  <div class="container">
+    <div class="text-center">
+      <span class="tag">Customer Love</span>
+      <h2 class="section-title">What Our Customers Say</h2>
+    </div>
+    <div class="testimonials-grid">
+      <div class="testimonial-card">
+        <div class="testimonial-quote">"</div>
+        <p class="testimonial-text">I ordered the Floral Wrap Dress and it arrived in two days! The quality is absolutely stunning — exactly as described. Will definitely shop here again.</p>
+        <div class="testimonial-author">
+          <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&q=80" alt="Sarah M." class="testimonial-avatar">
+          <div>
+            <div class="testimonial-author-name">Sarah M.</div>
+            <div class="testimonial-author-role">Verified Buyer</div>
+            <div class="stars" style="font-size:.8rem;color:#f4a02a;margin-top:4px;"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-quote">"</div>
+        <p class="testimonial-text">The Wool Blazer fits perfectly. I've been searching for a quality blazer for months and Namma Ooru Podavakar delivered. The customer service team was also super helpful!</p>
+        <div class="testimonial-author">
+          <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&q=80" alt="James T." class="testimonial-avatar">
+          <div>
+            <div class="testimonial-author-name">James T.</div>
+            <div class="testimonial-author-role">Verified Buyer</div>
+            <div class="stars" style="font-size:.8rem;color:#f4a02a;margin-top:4px;"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-quote">"</div>
+        <p class="testimonial-text">Absolutely love the quality! Ordered the Floral Wrap Dress and it arrived beautifully packaged. The fit is perfect and the fabric feels premium. Will definitely shop again!</p>
+        <div class="testimonial-author">
+          <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=100&q=80" alt="Priya K." class="testimonial-avatar">
+          <div>
+            <div class="testimonial-author-name">Priya K.</div>
+            <div class="testimonial-author-role">Verified Buyer</div>
+            <div class="stars" style="font-size:.8rem;color:#f4a02a;margin-top:4px;"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== NEWSLETTER ==================== -->
+<section class="newsletter-section">
+  <div class="container">
+    <span class="tag">Stay In The Loop</span>
+    <h2 class="section-title">Get Exclusive Deals</h2>
+    <p class="section-subtitle">Subscribe for style tips, new arrivals, and member-only offers.</p>
+    <form class="newsletter-form" onsubmit="handleNewsletter(event)">
+      <input type="email" placeholder="Enter your email address" required autocomplete="email">
+      <button type="submit" class="btn btn-primary">Subscribe</button>
+    </form>
+    <p class="newsletter-privacy">By subscribing you agree to our <a href="#">Privacy Policy</a>. Unsubscribe any time.</p>
+  </div>
+</section>
+
+<!-- ==================== FOOTER ==================== -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="logo"><div class="logo-icon"><i class="fa-solid fa-shirt"></i></div>Namma Ooru Podavakar</a>
+        <p class="footer-desc">Your go-to destination for premium fashion. Curated styles for every occasion and every individual.</p>
+        <div class="footer-social">
+          <a class="social-btn" href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+          <a class="social-btn" href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+          <a class="social-btn" href="#" aria-label="Twitter/X"><i class="fa-brands fa-x-twitter"></i></a>
+          <a class="social-btn" href="#" aria-label="Pinterest"><i class="fa-brands fa-pinterest-p"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Shop</h4>
+        <div class="footer-links">
+          <a href="shop.html?cat=men">Men's Wear</a>
+          <a href="shop.html?cat=women">Women's Wear</a>
+          <a href="shop.html?filter=sale">Sale</a>
+          <a href="shop.html?filter=new">New Arrivals</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Help</h4>
+        <div class="footer-links">
+          <a href="contact.html">Contact Us</a>
+          <a href="#">Size Guide</a>
+          <a href="#">Shipping Info</a>
+          <a href="#">Returns Policy</a>
+          <a href="#">Track My Order</a>
+          <a href="#">FAQ</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <div class="footer-contact-item"><i class="fa-solid fa-location-dot"></i><span>2 Rajiv Gandhi st, near muthalamman temple, Chennai</span></div>
+        <div class="footer-contact-item"><i class="fa-solid fa-phone"></i><span>+91-9942233235</span></div>
+        <div class="footer-contact-item"><i class="fa-solid fa-envelope"></i><span>sampathkarur58@gmail.com</span></div>
+        <div class="footer-contact-item"><i class="fa-regular fa-clock"></i><span>Available 9am – 8pm IST</span></div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Namma Ooru Podavakar. All rights reserved.</span>
+      <div class="footer-payment">
+        <span class="payment-icon">VISA</span>
+        <span class="payment-icon">MC</span>
+        <span class="payment-icon">AMEX</span>
+        <span class="payment-icon">PayPal</span>
+        <span class="payment-icon">Apple Pay</span>
+      </div>
+      <div style="display:flex;gap:16px;font-size:.78rem;">
+        <a href="#" style="color:rgba(255,255,255,.5)">Privacy Policy</a>
+        <a href="#" style="color:rgba(255,255,255,.5)">Terms of Use</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Cart Drawer -->
+<div class="cart-overlay" id="cartOverlay"></div>
+<aside class="cart-drawer" id="cartDrawer">
+  <div class="drawer-header">
+    <h3><i class="fa-solid fa-bag-shopping" style="color:var(--secondary);margin-right:8px;"></i> Your Cart</h3>
+    <button class="drawer-close" id="drawerClose" aria-label="Close cart"><i class="fa-solid fa-xmark"></i></button>
+  </div>
+  <div class="drawer-body"></div>
+  <div class="drawer-footer">
+    <div class="drawer-total"><span>Subtotal</span><span>₹0</span></div>
+    <a href="cart.html" class="btn btn-outline btn-block" style="margin-bottom:10px;">View Cart</a>
+    <a href="checkout.html" class="btn btn-primary btn-block">Checkout <i class="fa-solid fa-lock" style="font-size:.75rem;"></i></a>
+  </div>
+</aside>
+
+<!-- Scripts -->
+<script src="js/config.js"></script>
+<script src="js/data.js"></script>
+<script src="js/cart.js"></script>
+<script src="js/app.js"></script>
+<script>
+  // Search toggle
+  document.getElementById("searchToggle").addEventListener("click", () => {
+    const bar = document.getElementById("searchBar");
+    bar.style.display = bar.style.display === "none" ? "block" : "none";
+    if (bar.style.display === "block") document.getElementById("searchInput").focus();
+  });
+
+  function handleSearch(e) {
+    e.preventDefault();
+    const q = document.getElementById("searchInput").value.trim();
+    if (q) window.location.href = `shop.html?q=${encodeURIComponent(q)}`;
+  }
+
+  function handleNewsletter(e) {
+    e.preventDefault();
+    const email = e.target.querySelector("input[type='email']").value;
+    showToast(`Thanks! You're now subscribed with ${email}`, "success");
+    e.target.reset();
+  }
+</script>
+</body>
+</html>
